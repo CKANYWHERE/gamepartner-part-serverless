@@ -1,5 +1,6 @@
 import { Serverless } from 'serverless/aws';
 
+
 const serverlessConfiguration: Serverless = {
   service: {
     name: 'gamepartner',
@@ -14,6 +15,14 @@ const serverlessConfiguration: Serverless = {
       includeModules: true
     }
   },
+  /*resources:{
+    Resources:{
+      GamePartner:{
+        Type: 'AWS::S3::Bucket',
+        
+      }
+    }
+  },*/
   // Add the serverless-webpack plugin
   plugins: ['serverless-webpack','serverless-offline'],
   provider: {
@@ -28,16 +37,27 @@ const serverlessConfiguration: Serverless = {
   },
   functions: {
     insertUser: {
-      handler: './src/handler/UserHandler.insert',
+      handler: './src/handler/UserHandler.insertUser',
       events: [
         {
           http: {
             method: 'post',
-            path: 'user/insert',
+            path: 'user/insertUser',
           }
         }
       ]
-    }
+    },
+    insertImage: {
+      handler: './src/handler/UserHandler.insertImage',
+      events: [
+        {
+          http: {
+            method: 'post',
+            path: 'user/insertImage',
+          }
+        }
+      ]
+    },
   }
 }
 

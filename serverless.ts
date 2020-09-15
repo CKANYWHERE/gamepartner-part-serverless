@@ -15,14 +15,26 @@ const serverlessConfiguration: Serverless = {
       includeModules: true
     }
   },
-  /*resources:{
+  resources:{
     Resources:{
       GamePartner:{
         Type: 'AWS::S3::Bucket',
-        
+        Properties:{
+          BucketName: 'gamepartner',
+          AccessControl: 'PublicRead',
+          CorsConfiguration:{
+            CorsRules:[
+              {
+                AllowedMethods:['GET','PUT','POST','HEAD'],
+                AllowedOrigins: ["*"],
+                AllowedHeaders: ["*"]
+              }
+            ]
+          }
+        }
       }
     }
-  },*/
+  },
   // Add the serverless-webpack plugin
   plugins: ['serverless-webpack','serverless-offline'],
   provider: {
@@ -34,6 +46,13 @@ const serverlessConfiguration: Serverless = {
     environment: {
       AWS_NODEJS_CONNECTION_REUSE_ENABLED: '1',
     },
+    iamRoleStatements: [
+      {
+          Effect: 'Allow',
+          Action: ['s3:*'],
+          Resource: 'arn:aws:s3:::gamepartner',
+      },
+  ],
   },
   functions: {
     insertUser: {

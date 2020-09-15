@@ -28,10 +28,12 @@ export const insertImage: APIGatewayProxyHandler = async (event, _context) => {
   try{
     const s3 = new AWS.S3();
     const params = JSON.parse(event.body);
+    console.log(params);
+    
     const s3Params = {
-      Bucket: 'userpicture',
+      Bucket: 'gamepartner',
       Key: params.name,
-      ContentType: params.type,
+      ContentType: 'multipart/form-data',
       ACL: 'public-read'
     }
   

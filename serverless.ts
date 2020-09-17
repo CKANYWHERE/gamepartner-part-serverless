@@ -20,7 +20,7 @@ const serverlessConfiguration: Serverless = {
       GamePartner:{
         Type: 'AWS::S3::Bucket',
         Properties:{
-          BucketName: 'gamepartner',
+          BucketName: 'gamepartnercompany',
           AccessControl: 'PublicRead',
           CorsConfiguration:{
             CorsRules:[
@@ -42,6 +42,7 @@ const serverlessConfiguration: Serverless = {
     runtime: 'nodejs12.x',
     apiGateway: {
       minimumCompressionSize: 1024,
+      binaryMediaTypes:['multipart/form-data']
     },
     environment: {
       AWS_NODEJS_CONNECTION_REUSE_ENABLED: '1',

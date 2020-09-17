@@ -4,6 +4,7 @@ import { response } from '../common/response/Response';
 import { connectToDatabase } from '../common/conncetion/Connection';
 import { UserModel } from '../model/User/Model';
 import * as AWS from 'aws-sdk';
+import * as querystring from "querystring";
 
 export const insertUser: APIGatewayProxyHandler = async (event, _context) => {
  _context.callbackWaitsForEmptyEventLoop = false;
@@ -27,8 +28,8 @@ export const insertImage: APIGatewayProxyHandler = async (event, _context) => {
   _context.callbackWaitsForEmptyEventLoop = false;
   try{
     const s3 = await new AWS.S3();
-
-    const params = await JSON.parse(event.body);
+    //const params = await JSON.parse(event.body);
+    const params = querystring.parse(event.body);
     const s3Params = await {
       Bucket: 'gamepartner',
       Key: params.name,

@@ -78,6 +78,17 @@ const serverlessConfiguration: Serverless = {
         }
       ]
     },
+    getUserId: {
+      handler: './src/handler/UserHandler.getUserId',
+      events: [
+        {
+          http: {
+            method: 'get',
+            path: 'user/getUserId',
+          }
+        }
+      ]
+    },
   }
 }
 

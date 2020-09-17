@@ -10,7 +10,7 @@ export const insertUser: APIGatewayProxyHandler = async (event, _context) => {
  _context.callbackWaitsForEmptyEventLoop = false;
   const params = querystring.parse(event.body);
   try {
-    
+
     const newUser = new UserModel({
       userId:params.userId,
       pw:params.pw,
@@ -50,12 +50,6 @@ export const insertImage: APIGatewayProxyHandler = async (event, _context) => {
       ContentType: 'multipart/form-data',
       ACL: 'public-read'
     }
-
-    console.log(params);
-    
-    console.log(s3Params);
-    
-
     const uploadURL = await s3.getSignedUrlPromise('putObject', s3Params);
 
     return response(200,{
@@ -71,5 +65,29 @@ export const insertImage: APIGatewayProxyHandler = async (event, _context) => {
     });
   }
 
-
  }
+
+ export const getUserId : APIGatewayProxyHandler = async (event, _context) => {
+  _context.callbackWaitsForEmptyEventLoop = false;
+  const params = querystring.parse(event.body);
+  try{
+    let getUser = await UserModel.findById(params.userId);
+    if(getUser === undefined){
+      return response(200,{
+        result: true,
+        message:'Y',
+      });
+    }else{
+      return response(200,{
+        result: true,
+        message:'N',
+      });
+    }
+  }catch(e){
+    return response(500,{
+      result: false,
+      message:'server_err',
+    });
+  }
+
+}

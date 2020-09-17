@@ -8,10 +8,24 @@ import * as querystring from "querystring";
 
 export const insertUser: APIGatewayProxyHandler = async (event, _context) => {
  _context.callbackWaitsForEmptyEventLoop = false;
-  const body = JSON.parse(event.body);
+  const params = querystring.parse(event.body);
   try {
+    
+    const newUser = new UserModel({
+      userId:params.userId,
+      pw:params.pw,
+      sex:params.sex,
+      age:params.age,
+      birthDay:params.birthDay,
+      favoritGame:params.favoritGame,
+      introduce:params.introduce,
+      nickName:params.nickName,
+      imgPath:params.imgPath
+    });
+
     await connectToDatabase();
-    await UserModel.create(body.user);
+    await newUser.save();
+
   } catch (e) {
     return response(500,{
       result: true,

@@ -69,10 +69,17 @@ export const insertImage: APIGatewayProxyHandler = async (event, _context) => {
 
  export const getUserId : APIGatewayProxyHandler = async (event, _context) => {
   _context.callbackWaitsForEmptyEventLoop = false;
-  const params = querystring.parse(event.body);
-  try{
-    let getUser = await UserModel.findById(params.userId);
-    if(getUser === undefined){
+  //console.log(event.pathParameters);
+  const params = event.pathParameters.userId;
+  //console.log(params);
+  
+  try{ 
+
+    await connectToDatabase();
+    let getUser = await UserModel.findOne({userId:params}).exec();
+    console.log(getUser);
+    
+    if(getUser === null){
       return response(200,{
         result: true,
         message:'Y',

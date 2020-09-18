@@ -20,7 +20,7 @@ const serverlessConfiguration: Serverless = {
       GamePartner:{
         Type: 'AWS::S3::Bucket',
         Properties:{
-          BucketName: 'gamepartnercompany',
+          BucketName: 'gamepartner',
           AccessControl: 'PublicRead',
           CorsConfiguration:{
             CorsRules:[
@@ -84,7 +84,7 @@ const serverlessConfiguration: Serverless = {
         {
           http: {
             method: 'get',
-            path: 'user/getUserId',
+            path: 'user/getUserId/{userId}',
           }
         }
       ]

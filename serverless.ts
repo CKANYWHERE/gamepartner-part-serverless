@@ -76,7 +76,7 @@ const serverlessConfiguration: Serverless = {
             path: 'user/insertImage',
           }
         }
-      ]
+      ],
     },
     getUserId: {
       handler: './src/handler/UserHandler.getUserId',

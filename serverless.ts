@@ -89,7 +89,19 @@ const serverlessConfiguration: Serverless = {
         }
       ]
     },
-  }
+    getUserImage: {
+      handler: './src/handler/UserHandler.getUserImage',
+      events: [
+        {
+          http: {
+            method: 'get',
+            path: 'user/getUserImage/{imgPath}',
+          }
+        }
+      ]
+    },
+  },
+  
 }
 
 module.exports = serverlessConfiguration;

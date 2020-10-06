@@ -7,6 +7,7 @@ import * as AWS from "aws-sdk";
 import * as querystring from "querystring";
 import * as mime from "mime-types";
 
+
 export const insertUser: APIGatewayProxyHandler = async (event, _context) => {
   _context.callbackWaitsForEmptyEventLoop = false;
   const params = querystring.parse(event.body);
@@ -45,19 +46,17 @@ export const insertImage: APIGatewayProxyHandler = async (event, _context) => {
     accessKeyId:awsConfig.accessKeyId,
     secretAccessKey:awsConfig.secretAccessKey
   });
-  let fileContent = event.isBase64Encoded
-    ? Buffer.from(event.body, "base64")
-    : event.body;
 
+  let fileContent = Buffer.from(event.body);
+  
   let fileName = `${Date.now()}`;
- 
-  let contentType =
-    event.headers["content-type"] || event.headers["Content-Type"];
+  let contentType = event.headers["content-type"] || event.headers["Content-Type"];
   let extension = contentType ? mime.extension(contentType) : "";
   let fullFileName = extension ? `${fileName}.${extension}` : fileName;
   
   try {
-    await s3.putObject({
+
+      await s3.putObject({
         Bucket: "gamepartner",
         Key: fullFileName,
         Body: fileContent,
@@ -70,10 +69,9 @@ export const insertImage: APIGatewayProxyHandler = async (event, _context) => {
       result: true,
       message: "insert_complete",
       data: fullFileName,
-    });
-    
-  } catch (err) {
-    
+      });
+    } 
+    catch (err) {
     return response(500, {
       result: true,
       message: "insert_complete",
@@ -112,6 +110,7 @@ export const getUserId: APIGatewayProxyHandler = async (event, _context) => {
 export const getUserImage: APIGatewayProxyHandler = async (event, _context) => {
   _context.callbackWaitsForEmptyEventLoop = false;
   const params = event.pathParameters.imgPath;
+  
   const awsConfig = require('../../awsconfig.json');
   const s3 = new AWS.S3({
     region:awsConfig.region,
@@ -120,11 +119,10 @@ export const getUserImage: APIGatewayProxyHandler = async (event, _context) => {
   });
   try{
     const data = await s3.getObject({Bucket: 'gamepartner', Key: params}).promise();
-    return response(200,{
-      result:true,
-      message:'get object',
-      data:data
-    })
+    return {
+      statusCode:200,
+      body:JSON.stringify(data)
+    };
   }catch(e){
     return response(500,{
       result:false,

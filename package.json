@@ -9,12 +9,15 @@
   "dependencies": {
     "@types/mongoose": "^5.7.36",
     "@types/multer": "^1.4.4",
+    "busboy": "^0.3.1",
+    "mime-types": "^2.1.27",
     "mongoose": "^5.10.5",
     "path": "^0.12.7",
     "source-map-support": "^0.5.10"
   },
   "devDependencies": {
     "@types/aws-lambda": "^8.10.17",
+    "@types/busboy": "^0.2.3",
     "@types/node": "^10.12.18",
     "@types/serverless": "^1.72.5",
     "fork-ts-checker-webpack-plugin": "^3.0.1",

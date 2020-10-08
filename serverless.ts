@@ -20,7 +20,7 @@ const serverlessConfiguration: Serverless = {
       GamePartner:{
         Type: 'AWS::S3::Bucket',
         Properties:{
-          BucketName: 'gamepartnercompany',
+          BucketName: 'gamepartner',
           AccessControl: 'PublicRead',
           CorsConfiguration:{
             CorsRules:[
@@ -76,7 +76,7 @@ const serverlessConfiguration: Serverless = {
             path: 'user/insertImage',
           }
         }
-      ]
+      ],
     },
     getUserId: {
       handler: './src/handler/UserHandler.getUserId',
@@ -84,12 +84,22 @@ const serverlessConfiguration: Serverless = {
         {
           http: {
             method: 'get',
-            path: 'user/getUserId',
+            path: 'user/getUserId/{userId}',
           }
         }
       ]
     },
-
+    getUserImage: {
+      handler: './src/handler/UserHandler.getUserImage',
+      events: [
+        {
+          http: {
+            method: 'get',
+            path: 'user/getUserImage/{imgPath}',
+          }
+        }
+      ]
+    },
     insertWantedList:{
       handler: './src/handler/WantedListHandler.insertWantedList',
       events: [
@@ -102,6 +112,7 @@ const serverlessConfiguration: Serverless = {
       ]
     }
   }
+  
 }
 
 module.exports = serverlessConfiguration;

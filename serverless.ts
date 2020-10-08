@@ -15,26 +15,6 @@ const serverlessConfiguration: Serverless = {
       includeModules: true
     }
   },
-  resources:{
-    Resources:{
-      GamePartner:{
-        Type: 'AWS::S3::Bucket',
-        Properties:{
-          BucketName: 'gamepartner',
-          AccessControl: 'PublicRead',
-          CorsConfiguration:{
-            CorsRules:[
-              {
-                AllowedMethods:['GET','PUT','POST','HEAD'],
-                AllowedOrigins: ["*"],
-                AllowedHeaders: ["*"]
-              }
-            ]
-          }
-        }
-      }
-    }
-  },
   // Add the serverless-webpack plugin
   plugins: ['serverless-webpack','serverless-offline'],
   provider: {
@@ -47,13 +27,6 @@ const serverlessConfiguration: Serverless = {
     environment: {
       AWS_NODEJS_CONNECTION_REUSE_ENABLED: '1',
     },
-    iamRoleStatements: [
-      {
-          Effect: 'Allow',
-          Action: ['s3:*'],
-          Resource: 'arn:aws:s3:::gamepartner',
-      },
-  ],
   },
   functions: {
     insertUser: {
@@ -67,17 +40,6 @@ const serverlessConfiguration: Serverless = {
         }
       ]
     },
-    insertImage: {
-      handler: './src/handler/UserHandler.insertImage',
-      events: [
-        {
-          http: {
-            method: 'post',
-            path: 'user/insertImage',
-          }
-        }
-      ],
-    },
     getUserId: {
       handler: './src/handler/UserHandler.getUserId',
       events: [
@@ -85,17 +47,6 @@ const serverlessConfiguration: Serverless = {
           http: {
             method: 'get',
             path: 'user/getUserId/{userId}',
-          }
-        }
-      ]
-    },
-    getUserImage: {
-      handler: './src/handler/UserHandler.getUserImage',
-      events: [
-        {
-          http: {
-            method: 'get',
-            path: 'user/getUserImage/{imgPath}',
           }
         }
       ]
@@ -110,9 +61,30 @@ const serverlessConfiguration: Serverless = {
           }
         }
       ]
-    }
+    },
+    getWantedToList:{
+      handler: './src/handler/WantedListHandler.getWantToFriendList',
+      events: [
+        {
+          http: {
+            method: 'get',
+            path: 'wantedList/getWantToFriendList/{from}',
+          }
+        }
+      ]
+    },
+    getWantedFromList:{
+      handler: './src/handler/WantedListHandler.getWantedList',
+      events: [
+        {
+          http: {
+            method: 'get',
+            path: 'wantedList/getWantedList/{to}',
+          }
+        }
+      ]
+    },
   }
-  
 }
 
 module.exports = serverlessConfiguration;

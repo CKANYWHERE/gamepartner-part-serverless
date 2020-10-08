@@ -3,6 +3,7 @@ import 'source-map-support/register';
 import { response } from '../common/response/Response';
 import { connectToDatabase } from '../common/conncetion/Connection';
 import { WantedListModel } from '../model/WantList/Model';
+import { UserModel } from '../model/User/Model';
 import * as querystring from "querystring";
 
 export const insertWantedList: APIGatewayProxyHandler = async (event, _context) => {
@@ -35,9 +36,24 @@ export const getWantedList: APIGatewayProxyHandler = async (event, _context) => 
 
     try {
       await connectToDatabase();
-      let getList = await WantedListModel.findOne({ to: params }).exec();
+      let getUserList = await WantedListModel.find({ to: params }).exec();
+      let fromList = [];
+      let getDetailList = null;
+
+      if(getUserList !== null){
+        getUserList.forEach((user)=>{
+          fromList.push(user.from);
+        });
+
+        getDetailList = await UserModel.find(
+          {userId:{$in:fromList}},
+          {"_id":0,"userId":0,"pw":0,"__v":0})
+          //.select()
+          .exec();
+      }
+
   
-      if (getList === null) {
+      if (getDetailList === null) {
         return response(200, {
           result: false,
           message: "no data for to list",
@@ -45,10 +61,11 @@ export const getWantedList: APIGatewayProxyHandler = async (event, _context) => 
       } else {
         return response(200, {
           result: true,
-          data: getList
+          data: getDetailList
         });
       }
     } catch (e) {
+      
       return response(500, {
         result: false,
         message: "server_err",
@@ -62,9 +79,23 @@ export const getWantToFriendList: APIGatewayProxyHandler = async (event, _contex
 
     try {
       await connectToDatabase();
-      let getList = await WantedListModel.findOne({ from: params }).exec();
-  
-      if (getList === null) {
+      let getUserList = await WantedListModel.find({ from: params }).exec();
+      let toList = []
+      let getDetailList = null
+
+      if(getUserList !== null){
+        getUserList.forEach((user)=>{
+          toList.push(user.to)
+        })
+
+        getDetailList = await UserModel.find(
+          {userId:{$in:toList}},
+          {"_id":0,"userId":0,"pw":0,"__v":0})
+          //.select()
+          .exec();
+      }
+
+      if (getDetailList === null) {
         return response(200, {
           result: false,
           message: "no data for to list",
@@ -72,7 +103,7 @@ export const getWantToFriendList: APIGatewayProxyHandler = async (event, _contex
       } else {
         return response(200, {
           result: true,
-          data: getList
+          data: getDetailList
         });
       }
     } catch (e) {

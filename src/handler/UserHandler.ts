@@ -3,6 +3,7 @@ import "source-map-support/register";
 import { response } from "../common/response/Response";
 import { connectToDatabase } from "../common/conncetion/Connection";
 import { UserModel } from "../model/User/Model";
+import { FriendModel } from "../model/FriendList/Model";
 import * as querystring from "querystring";
 
 
@@ -22,8 +23,13 @@ export const insertUser: APIGatewayProxyHandler = async (event, _context) => {
       imgPath: params.imgPath,
     });
 
+    const newFriend = new FriendModel({
+      userId: params.userId
+    })
+
     await connectToDatabase();
     await newUser.save();
+    await newFriend.save();
   } catch (e) {
     return response(500, {
       result: true,

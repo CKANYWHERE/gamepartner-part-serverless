@@ -89,6 +89,18 @@ const serverlessConfiguration: Serverless = {
         }
       ]
     },
+
+    insertWantedList:{
+      handler: './src/handler/WantedListHandler.insertWantedList',
+      events: [
+        {
+          http: {
+            method: 'post',
+            path: 'wantedList/insertList',
+          }
+        }
+      ]
+    }
   }
 }
 

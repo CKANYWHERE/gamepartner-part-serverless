@@ -84,6 +84,29 @@ const serverlessConfiguration: Serverless = {
         }
       ]
     },
+    insertFriend:{
+      handler: './src/handler/FriendHandler.insertFriend',
+      events: [
+        {
+          http: {
+            method: 'post',
+            path: 'friendList/insertFriendList',
+          }
+        }
+      ]
+    },
+    sendSMS:{
+      handler: './src/handler/SMSHandler.sendSMS',
+      events: [
+        {
+          http: {
+            method: 'post',
+            path: 'sms/sendSms',
+            cors:true
+          }
+        }
+      ]
+    }
   }
 }
 

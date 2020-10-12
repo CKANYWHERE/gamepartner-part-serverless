@@ -9,7 +9,7 @@ export const connectToDatabase = () => {
     const defaultDb = 'mongodb+srv://janu723:changk1325!@gamepartener.pp7ww.mongodb.net/gamepartner?retryWrites=true&w=majority';
     const dbUri: string = defaultDb;
 
-    return connect(dbUri,{useNewUrlParser:true,useUnifiedTopology: true,useCreateIndex:true}).then((db: Mongoose) => {
+    return connect(dbUri,{useNewUrlParser:true,useUnifiedTopology: true,useCreateIndex:true, useFindAndModify: false }).then((db: Mongoose) => {
         isConnected = db.connection.readyState == 1; // 1 for connected
     }).catch(error => {
         console.log('db error:', error);

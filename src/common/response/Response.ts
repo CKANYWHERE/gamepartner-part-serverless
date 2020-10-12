@@ -6,6 +6,9 @@ const response = (status: number, data:IResponseBody) : APIGatewayProxyResult =>
         statusCode:status,
         headers:{
             "Access-Control-Allow-Origin" : "*",
+            "Access-Control-Allow-Headers" : "*",
+            'Access-Control-Allow-Credentials': true,
+            "Access-Control-Allow-Methods": "POST,GET",
             "Content-Type":"application/json"
         },
         body:JSON.stringify(data)

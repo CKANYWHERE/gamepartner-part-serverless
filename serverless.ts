@@ -29,6 +29,17 @@ const serverlessConfiguration: Serverless = {
     },
   },
   functions: {
+    indexPage: {
+      handler: './src/handler/IndexHandler.getUserFriendInfoList',
+      events: [
+        {
+          http: {
+            method: 'get',
+            path: 'index/getFriendInfo/{userId}',
+          }
+        }
+      ]
+    },
     insertUser: {
       handler: './src/handler/UserHandler.insertUser',
       events: [
@@ -95,18 +106,17 @@ const serverlessConfiguration: Serverless = {
         }
       ]
     },
-    sendSMS:{
-      handler: './src/handler/SMSHandler.sendSMS',
+    getFriendList:{
+      handler: './src/handler/FriendHandler.getFriendList',
       events: [
         {
           http: {
-            method: 'post',
-            path: 'sms/sendSms',
-            cors:true
+            method: 'get',
+            path: 'friendList/getFriendList/{userId}',
           }
         }
       ]
-    }
+    },
   }
 }
 

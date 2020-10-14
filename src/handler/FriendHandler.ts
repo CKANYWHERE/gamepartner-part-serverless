@@ -78,3 +78,28 @@ export const insertFriend: APIGatewayProxyHandler = async (event, _context) => {
       message: "insert_complete",
     });
 };
+
+
+export const getFriendList: APIGatewayProxyHandler = async (event, _context) => {
+  _context.callbackWaitsForEmptyEventLoop = false;
+  const params = event.pathParameters.userId;
+
+  try{
+    await connectToDatabase();
+    const freindList = await FriendModel.findOne(
+      {userId:params},{"userId":0,"__v":0,"__id":0}).exec();
+
+    return response(200, {
+      result: true,
+      data: freindList
+    });
+
+  }catch(e){
+    return response(500, {
+      result: true,
+      message:"failed"
+    });
+  }
+
+ 
+}

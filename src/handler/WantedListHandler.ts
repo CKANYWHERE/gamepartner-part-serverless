@@ -36,7 +36,7 @@ export const getWantedList: APIGatewayProxyHandler = async (event, _context) => 
 
     try {
       await connectToDatabase();
-      let getUserList = await WantedListModel.find({ to: params }).exec();
+      let getUserList = await WantedListModel.find({ to: params , isConnected:false}).exec();
       let fromList = [];
       let getDetailList = null;
 
@@ -79,7 +79,7 @@ export const getWantToFriendList: APIGatewayProxyHandler = async (event, _contex
 
     try {
       await connectToDatabase();
-      let getUserList = await WantedListModel.find({ from: params }).exec();
+      let getUserList = await WantedListModel.find({ from: params , isConnected:false}).exec();
       let toList = []
       let getDetailList = null
 

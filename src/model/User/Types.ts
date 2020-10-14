@@ -10,6 +10,8 @@ export interface IUser{
     introduce: string;
     nickName:string;
     imgPath:string;
+    liked:number;
+    phoneNumber:string;
 }
 
 export interface IUserDocument extends IUser, Document {}

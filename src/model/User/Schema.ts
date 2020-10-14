@@ -13,6 +13,11 @@ const UserSchema = new Schema({
     introduce: String,
     nickName:String,
     imgPath:String,
+    liked:{
+        type:Number,
+        default:0
+    },
+    phoneNumber:String
 
 });
 

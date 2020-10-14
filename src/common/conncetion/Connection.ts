@@ -1,4 +1,5 @@
 import { Mongoose, connect } from 'mongoose';
+const dbConfig = require('../../../dbconfig.json');
 let isConnected: boolean = false;
 
 export const connectToDatabase = () => {
@@ -6,7 +7,7 @@ export const connectToDatabase = () => {
     if (isConnected) {
         return Promise.resolve();
     }
-    const defaultDb = 'mongodb+srv://janu723:changk1325!@gamepartener.pp7ww.mongodb.net/gamepartner?retryWrites=true&w=majority';
+    const defaultDb = dbConfig.defaultDb;
     const dbUri: string = defaultDb;
 
     return connect(dbUri,{useNewUrlParser:true,useUnifiedTopology: true,useCreateIndex:true, useFindAndModify: false }).then((db: Mongoose) => {

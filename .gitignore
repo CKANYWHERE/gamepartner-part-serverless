@@ -8,6 +8,8 @@ jspm_packages
 # Webpack directories
 .webpack
 
+dbconfig.json
+
 awsconfig.json
 
 smsconfig.json

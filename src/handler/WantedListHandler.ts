@@ -3,6 +3,7 @@ import 'source-map-support/register';
 import { response } from '../common/response/Response';
 import { connectToDatabase } from '../common/conncetion/Connection';
 import { WantedListModel } from '../model/WantList/Model';
+import { FriendModel } from '../model/FriendList/Model';
 import { UserModel } from '../model/User/Model';
 import * as querystring from "querystring";
 
@@ -10,13 +11,52 @@ export const insertWantedList: APIGatewayProxyHandler = async (event, _context) 
     _context.callbackWaitsForEmptyEventLoop = false;
      const params = querystring.parse(event.body);
      try {
+
        const newWantedListModel = new WantedListModel({
          to:params.to,
          from:params.from,
        });
    
        await connectToDatabase();
-       await newWantedListModel.save();
+       
+       const pastSendUser = await WantedListModel.findOne(
+         {
+           from:params.from.toString()
+          ,to:params.to.toString()
+          }
+        ).exec();
+
+       const isFriend = await FriendModel.findOne(
+          {
+            userId:params.from.toString(),
+            "friendList.userId":params.to.toString()
+          }
+        ).exec();
+        
+        if(pastSendUser === null){
+
+          if(isFriend === null){
+            await newWantedListModel.save();
+
+            return response(200,{
+              result: true,
+              message:'insert_complete'
+           });
+          }
+          else{
+            return response(200,{
+              result: false,
+              message:'already friend'
+           });
+          }
+
+        }else{
+          return response(200,{
+            result: false,
+            message:'already sended'
+         });
+        }
+        
    
      } catch (e) {
        return response(500,{
@@ -24,10 +64,7 @@ export const insertWantedList: APIGatewayProxyHandler = async (event, _context) 
          message:'server_err'
        })
      }
-    return response(200,{
-       result: true,
-       message:'insert_complete'
-    });
+
 }
 
 export const getWantedList: APIGatewayProxyHandler = async (event, _context) => {

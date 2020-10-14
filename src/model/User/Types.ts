@@ -12,6 +12,7 @@ export interface IUser{
     imgPath:string;
     liked:number;
     phoneNumber:string;
+    coin:number
 }
 
 export interface IUserDocument extends IUser, Document {}

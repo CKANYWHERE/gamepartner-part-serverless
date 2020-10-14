@@ -17,8 +17,9 @@ const UserSchema = new Schema({
         type:Number,
         default:0
     },
-    phoneNumber:String
-
+    phoneNumber:String,
+    coin:Number,
+    
 });
 
 export default UserSchema;

@@ -7,7 +7,7 @@ import { BoardModel } from "../model/BoardList/Model";
 import * as querystring from "querystring";
 
 
-export const insertUser: APIGatewayProxyHandler = async (event, _context) => {
+export const insertBoard: APIGatewayProxyHandler = async (event, _context) => {
     _context.callbackWaitsForEmptyEventLoop = false;
     const params = querystring.parse(event.body);
     try {
@@ -34,15 +34,16 @@ export const insertUser: APIGatewayProxyHandler = async (event, _context) => {
               favoritGame: params.favoritGame,
               nickName:params.nickName,
               imgPath:params.imgPath,
-              liked:params.liked
+              liked:params.liked,
           },
+          registerDate:params.registerDate
         });   
 
         await newBoard.save();
         await UserModel.updateOne(
           {userId:user.userId},
           {$set:{coin:user.coin - 1}}
-        );
+        ).exec();
         return response(200, {
           result: true,
           message: "insert_complete",
@@ -58,3 +59,25 @@ export const insertUser: APIGatewayProxyHandler = async (event, _context) => {
       });
     }
   };
+
+  
+export const getBoardList: APIGatewayProxyHandler = async (_, _context) => {
+  _context.callbackWaitsForEmptyEventLoop = false;
+
+  try{
+    await connectToDatabase();
+    const boardList = await BoardModel.find().sort({registerDate:-1}).limit(50).exec();
+    
+    return response(200, {
+      result: true,
+      data: boardList
+    });
+
+  }catch(e){
+    return response(500, {
+      result: true,
+      message:"failed"
+    });
+  }
+ 
+}

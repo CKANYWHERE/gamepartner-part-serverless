@@ -117,6 +117,17 @@ const serverlessConfiguration: Serverless = {
         }
       ]
     },
+    insertBoard:{
+      handler: './src/handler/BoardHandler.insertUser',
+      events: [
+        {
+          http: {
+            method: 'post',
+            path: 'board/insertBoard',
+          }
+        }
+      ]
+    },
   }
 }
 

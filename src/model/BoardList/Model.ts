@@ -2,4 +2,4 @@ import { model } from "mongoose";
 import BoardSchema from "./Schema" ;
 import { IBoardDocument } from './Types';
 
-export const BoardModel = model<IBoardDocument>("friend",BoardSchema);
+export const BoardModel = model<IBoardDocument>("board",BoardSchema);

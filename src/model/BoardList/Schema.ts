@@ -1,5 +1,6 @@
 import {Schema} from "mongoose";
 
+
 const BoardSchema = new Schema({
     title: String,
     register:{
@@ -14,9 +15,7 @@ const BoardSchema = new Schema({
             default:0
         },
     },
-    registerDate: {
-        type:Date,
-    },
+    registerDate: String
 });
 
 export default BoardSchema;

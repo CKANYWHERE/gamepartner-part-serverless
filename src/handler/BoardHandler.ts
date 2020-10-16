@@ -6,7 +6,6 @@ import { UserModel } from "../model/User/Model";
 import { BoardModel } from "../model/BoardList/Model";
 import * as querystring from "querystring";
 
-
 export const insertBoard: APIGatewayProxyHandler = async (event, _context) => {
     _context.callbackWaitsForEmptyEventLoop = false;
     const params = querystring.parse(event.body);

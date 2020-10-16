@@ -14,7 +14,7 @@ export interface IBoard{
             default:0
         },
     },
-    registerDate: Date
+    registerDate: String
 }
 
 export interface IBoardDocument extends IBoard, Document {}

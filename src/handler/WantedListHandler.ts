@@ -15,7 +15,8 @@ export const insertWantedList: APIGatewayProxyHandler = async (event, _context) 
        const newWantedListModel = new WantedListModel({
          to:params.to,
          from:params.from,
-       });
+         registerDate:params.registerDate
+        });
    
        await connectToDatabase();
        

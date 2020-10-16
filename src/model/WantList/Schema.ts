@@ -3,10 +3,7 @@ import {Schema} from "mongoose";
 const WantListSchema = new Schema({
     to:String,
     from:String,
-    registerDate: {
-        type:Date,
-        default:Date.now
-    },
+    registerDate:String,
     isConnected: {
        type:Boolean,
        default:false

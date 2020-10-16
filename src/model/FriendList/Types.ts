@@ -9,7 +9,7 @@ export interface IFriend{
         age:String,
         favoritGame:String,
         nickName:String,
-        imgPath:String
+        imgPath:String,
     }]
 }
 

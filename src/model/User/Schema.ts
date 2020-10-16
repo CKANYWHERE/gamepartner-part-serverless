@@ -19,7 +19,7 @@ const UserSchema = new Schema({
     },
     phoneNumber:String,
     coin:Number,
-    
+    registerDate:String
 });
 
 export default UserSchema;

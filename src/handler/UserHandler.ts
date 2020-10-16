@@ -22,7 +22,8 @@ export const insertUser: APIGatewayProxyHandler = async (event, _context) => {
       nickName: params.nickName,
       imgPath: params.imgPath,
       phoneNumber: params.phoneNumber,
-      coin:5
+      coin:5,
+      registerDate:params.registerDate
     });
 
     const newFriend = new FriendModel({

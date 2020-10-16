@@ -3,7 +3,7 @@ import {Document,Model} from "mongoose"
 export interface IWantedList{
     to:String;
     from:String;
-    registerDate: Date;
+    registerDate: String;
     isConnected: Boolean;
 }
 

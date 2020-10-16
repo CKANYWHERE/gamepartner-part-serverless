@@ -12,7 +12,7 @@ const FriendSchema = new Schema({
         age:String,
         favoritGame:String,
         nickName:String,
-        imgPath:String
+        imgPath:String,
     }]
 });
 

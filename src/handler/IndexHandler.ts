@@ -17,11 +17,11 @@ export const getUserFriendInfoList: APIGatewayProxyHandler = async (event, _cont
         ).exec();
         
         const wantedToList = await WantedListModel.find(
-            {from:params, isConnected:false},{"_id":0,"userId":0,"pw":0,"__v":0}
+            {"from.userId":params, isConnected:false},{"_id":0,"userId":0,"pw":0,"__v":0,"from":0}
         ).exec();
 
         const wantedFromList = await WantedListModel.find(
-            {to:params, isConnected:false},{"_id":0,"userId":0,"pw":0,"__v":0}
+            {"to.userId":params, isConnected:false},{"_id":0,"userId":0,"pw":0,"__v":0,"to":0}
         ).exec();
 
     

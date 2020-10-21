@@ -5,25 +5,29 @@ import { connectToDatabase } from '../common/conncetion/Connection';
 import { WantedListModel } from '../model/WantList/Model';
 import { FriendModel } from '../model/FriendList/Model';
 import { UserModel } from '../model/User/Model';
+
 import * as querystring from "querystring";
 
 export const insertWantedList: APIGatewayProxyHandler = async (event, _context) => {
     _context.callbackWaitsForEmptyEventLoop = false;
      const params = querystring.parse(event.body);
      try {
-
-       const newWantedListModel = new WantedListModel({
-         to:params.to,
-         from:params.from,
-         registerDate:params.registerDate
-        });
    
        await connectToDatabase();
-       
+
+       const toUser = await UserModel.findOne({userId:params.to.toString()})
+       const fromUser = await UserModel.findOne({userId:params.from.toString()})
+
+       const newWantedListModel = new WantedListModel({
+        to:toUser,
+        from:fromUser,
+        registerDate:params.registerDate
+       });
+
        const pastSendUser = await WantedListModel.findOne(
          {
-           from:params.from.toString()
-          ,to:params.to.toString()
+           "from.userId":params.from.toString()
+          ,"to.userId":params.to.toString()
           }
         ).exec();
 
@@ -74,7 +78,7 @@ export const getWantedList: APIGatewayProxyHandler = async (event, _context) => 
 
     try {
       await connectToDatabase();
-      let getUserList = await WantedListModel.find({ to: params , isConnected:false}).exec();
+      let getUserList = await WantedListModel.find({ "to.userId": params , isConnected:false}).exec();
       let fromList = [];
       let getDetailList = null;
 
@@ -117,7 +121,7 @@ export const getWantToFriendList: APIGatewayProxyHandler = async (event, _contex
 
     try {
       await connectToDatabase();
-      let getUserList = await WantedListModel.find({ from: params , isConnected:false}).exec();
+      let getUserList = await WantedListModel.find({ "from.userId": params , isConnected:false}).exec();
       let toList = []
       let getDetailList = null
 

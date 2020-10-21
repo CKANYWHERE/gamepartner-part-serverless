@@ -1,8 +1,30 @@
 import {Document,Model} from "mongoose"
 
 export interface IWantedList{
-    to:String;
-    from:String;
+    to:{
+        userId:String,
+        sex: String,
+        age: Number,
+        favoritGame: String,
+        nickName:String,
+        imgPath:String,
+        liked:{
+            type:Number,
+            default:0
+        }
+    };
+    from:{
+        userId:String,
+        sex: String,
+        age: Number,
+        favoritGame: String,
+        nickName:String,
+        imgPath:String,
+        liked:{
+            type:Number,
+            default:0
+        }
+    };
     registerDate: String;
     isConnected: Boolean;
 }

@@ -52,12 +52,12 @@ export const insertFriend: APIGatewayProxyHandler = async (event, _context) => {
 
         await WantedListModel.updateMany(
           {
-            from: {$in: [
+            "from.userId": {$in: [
                 params.fromUser.toString(),
                 params.toUser.toString()
               ],
             },
-            to: {$in: [
+            "to.userId": {$in: [
                 params.toUser.toString(),
                 params.fromUser.toString()
               ],

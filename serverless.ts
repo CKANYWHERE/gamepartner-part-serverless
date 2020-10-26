@@ -139,6 +139,28 @@ const serverlessConfiguration: Serverless = {
         }
       ]
     },
+    getTest:{
+      handler: './src/handler/IndexHandler.test',
+      events: [
+        {
+          http: {
+            method: 'get',
+            path: 'board/getTest',
+          }
+        }
+      ]
+    },
+    postTest:{
+      handler: './src/handler/IndexHandler.testPost',
+      events: [
+        {
+          http: {
+            method: 'post',
+            path: 'board/postTest',
+          }
+        }
+      ]
+    },
   }
 }
 

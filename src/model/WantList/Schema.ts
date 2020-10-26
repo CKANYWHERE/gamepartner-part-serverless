@@ -8,6 +8,7 @@ const WantListSchema = new Schema({
         favoritGame: String,
         nickName:String,
         imgPath:String,
+        introduce:String,
         liked:{
             type:Number,
             default:0
@@ -20,6 +21,7 @@ const WantListSchema = new Schema({
         favoritGame: String,
         nickName:String,
         imgPath:String,
+        introduce:String,
         liked:{
             type:Number,
             default:0

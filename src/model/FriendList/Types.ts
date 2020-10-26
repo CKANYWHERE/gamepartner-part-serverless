@@ -10,6 +10,7 @@ export interface IFriend{
         favoritGame:String,
         nickName:String,
         imgPath:String,
+        introduce:String
     }]
 }
 

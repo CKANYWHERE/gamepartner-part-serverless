@@ -4,6 +4,7 @@ import { response } from "../common/response/Response";
 import { connectToDatabase } from "../common/conncetion/Connection";
 import { WantedListModel } from '../model/WantList/Model';
 import { FriendModel } from "../model/FriendList/Model";
+import * as querystring from "querystring";
 
 
 export const getUserFriendInfoList: APIGatewayProxyHandler = async (event, _context) => {
@@ -37,3 +38,38 @@ export const getUserFriendInfoList: APIGatewayProxyHandler = async (event, _cont
       });
     }
   };
+
+
+export const test: APIGatewayProxyHandler = async (_, _context) => {
+  _context.callbackWaitsForEmptyEventLoop = false;
+  //const params = event.pathParameters.userId;
+
+  try{
+    return response(200, {
+      result: true,
+      data: [{test:"testMessage"},{test2:"testMessage2"}]
+    });
+    
+  } catch (e) {
+    return response(500, {
+      result: false,
+      message: "server_err",
+    });
+  }
+};
+export const testPost: APIGatewayProxyHandler = async (event, _context) => {
+  _context.callbackWaitsForEmptyEventLoop = false;
+  const params = querystring.parse(event.body);
+  try{
+    return response(200, {
+      result: true,
+      data:{message:params.test}
+    });
+    
+  } catch (e) {
+    return response(500, {
+      result: false,
+      message: "server_err",
+    });
+  }
+};

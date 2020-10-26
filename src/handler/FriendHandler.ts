@@ -27,6 +27,7 @@ export const insertFriend: APIGatewayProxyHandler = async (event, _context) => {
         "favoritGame":toUser.favoritGame,
         "nickName":toUser.nickName,
         "imgPath":toUser.imgPath,
+        "introduce":toUser.introduce,
       }
 
       let fromUserParse = {
@@ -37,6 +38,7 @@ export const insertFriend: APIGatewayProxyHandler = async (event, _context) => {
         "favoritGame":fromUser.favoritGame,
         "nickName":fromUser.nickName,
         "imgPath":fromUser.imgPath,
+        "introduce":fromUser.introduce,
       }
 
       if(toUser !== null && fromUser !== null){

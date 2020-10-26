@@ -13,6 +13,7 @@ const FriendSchema = new Schema({
         favoritGame:String,
         nickName:String,
         imgPath:String,
+        introduce:String,
     }]
 });
 

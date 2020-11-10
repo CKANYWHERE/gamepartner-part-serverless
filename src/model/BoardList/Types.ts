@@ -14,6 +14,7 @@ export interface IBoard{
             default:0
         },
     },
+    clickCount:Number
     registerDate: String
 }
 

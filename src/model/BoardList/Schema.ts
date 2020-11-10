@@ -14,6 +14,7 @@ const BoardSchema = new Schema({
             type:Number,
             default:0
         },
+        clickCount:Number
     },
     registerDate: String
 });

@@ -33,7 +33,6 @@ export const insertBoard: APIGatewayProxyHandler = async (event, _context) => {
               favoritGame: params.favoritGame,
               nickName:params.nickName,
               imgPath:params.imgPath,
-              liked:params.liked,
           },
           clickCount:0,
           registerDate:params.registerDate

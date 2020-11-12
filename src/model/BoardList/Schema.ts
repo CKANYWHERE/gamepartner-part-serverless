@@ -10,10 +10,6 @@ const BoardSchema = new Schema({
         favoritGame: String,
         nickName:String,
         imgPath:String,
-        liked:{
-            type:Number,
-            default:0
-        },
         clickCount:Number
     },
     registerDate: String
